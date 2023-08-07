@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -30,4 +32,6 @@ public class User {
    @JoinColumn(name="login_id")
    private Login login;
 
+   @OneToMany
+   public List<Product> cart;
 }
