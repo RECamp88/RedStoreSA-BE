@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // primary key
+    private int id; // primary key
     private String name; // name of item (will not be unique)
     private String dept; // (clothing, shoes, or accessories)
     private String type; // (tshirt, polo, athletic pants, shoes, watch, fitness tracker, etc)
