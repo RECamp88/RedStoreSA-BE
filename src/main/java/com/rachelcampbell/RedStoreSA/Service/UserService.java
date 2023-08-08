@@ -69,4 +69,13 @@ public class UserService {
         return deletedUser;
     }
 
+    /* User Story 4: Get a user by their id
+    *  @param: id
+    *  @return: return the user
+    * */
+    public User getUserById(long id){
+        return userRepository.findById(id).get();
+    }
+
+
 }
