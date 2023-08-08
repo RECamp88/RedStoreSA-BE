@@ -40,4 +40,14 @@ public class UserController {
     public User getUserById(@PathVariable long id){
         return userService.getUserById(id);
     }
+
+    // Following methods will be working with the Users shopping: adding, removing, and paying for their cart items
+
+
+
+
+
+
+
+
 }

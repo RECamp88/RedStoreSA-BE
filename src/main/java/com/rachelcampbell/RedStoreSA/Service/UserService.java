@@ -1,22 +1,28 @@
 package com.rachelcampbell.RedStoreSA.Service;
 
 import com.rachelcampbell.RedStoreSA.Model.Login;
+import com.rachelcampbell.RedStoreSA.Model.Product;
 import com.rachelcampbell.RedStoreSA.Model.User;
 import com.rachelcampbell.RedStoreSA.Repository.LoginRepository;
+import com.rachelcampbell.RedStoreSA.Repository.ProductRepository;
 import com.rachelcampbell.RedStoreSA.Repository.UserRepository;
 import com.rachelcampbell.RedStoreSA.Exception.ServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final LoginRepository loginRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, LoginRepository loginRepository) {
+    public UserService(UserRepository userRepository, LoginRepository loginRepository, ProductRepository productRepository) {
         this.userRepository = userRepository;
         this.loginRepository = loginRepository;
+        this.productRepository = productRepository;
     }
 
     /* User story 1: User Registration
@@ -76,6 +82,36 @@ public class UserService {
     public User getUserById(long id){
         return userRepository.findById(id).get();
     }
+
+    // Following methods will be working with the Users shopping: adding, removing, and paying for their cart items
+
+    /* Shopping story 1: Adding a product to the cart
+     *  @param: user id (uid) and product id (pid)
+     *  @return: user with updated cart
+     *  @throws: if product is not found
+     */
+    public User addToCart(long uid, int pid) throws ServicesException{
+        User user = userRepository.findById(uid).get();
+        Product product = productRepository.findById(pid).orElseThrow(() -> new ServicesException("Item is not found."));
+        List<Product> cart = user.getCart();
+        boolean productFound = false;
+        for(Product item : cart) {
+            if (item.getId() == product.getId()) {
+                item.incrementQuantity();
+                productFound = true;
+                break;
+            }
+        }
+        if (!productFound){
+            product.setQuantity(1);
+            cart.add(product);
+        }
+        user.setBalance((user.getBalance()) + product.getPrice());
+        user.setCart(cart);
+        return userRepository.save(user);
+    }
+
+    /* Shopping Story 2: Removing an item from the cart*/
 
 
 }
