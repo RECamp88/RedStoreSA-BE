@@ -1,10 +1,10 @@
-package Controller;
+package com.rachelcampbell.RedStoreSA.Controller;
 
-import Model.User;
-import Service.UserService;
+import com.rachelcampbell.RedStoreSA.Model.User;
+import com.rachelcampbell.RedStoreSA.Service.UserService;
+import com.rachelcampbell.RedStoreSA.Exception.ServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import Exception.ServicesException;
 
 @RestController
 @CrossOrigin(origins = {"*"})
@@ -25,9 +25,13 @@ public class UserController {
 
     //updating a user's information
     @PatchMapping("update")
-    public User updateUser (long id, @RequestBody User user) {
+    public User updateUser(long id, @RequestBody User user) {
         return userService.updateUser(id, user);
     }
 
-
+    //deleting a user's account
+    @DeleteMapping("delete")
+    public User deleteUser(long id, @RequestBody User user) {
+        return userService.deleteUser(id, user);
+    }
 }

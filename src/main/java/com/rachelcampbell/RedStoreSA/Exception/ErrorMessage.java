@@ -1,4 +1,4 @@
-package Exception;
+package com.rachelcampbell.RedStoreSA.Exception;
 
 import lombok.Getter;
 import lombok.Setter;

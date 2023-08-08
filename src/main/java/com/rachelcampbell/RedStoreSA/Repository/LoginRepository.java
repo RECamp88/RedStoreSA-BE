@@ -1,6 +1,6 @@
-package Repository;
+package com.rachelcampbell.RedStoreSA.Repository;
 
-import Model.Login;
+import com.rachelcampbell.RedStoreSA.Model.Login;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

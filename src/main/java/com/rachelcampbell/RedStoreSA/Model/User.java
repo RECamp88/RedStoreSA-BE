@@ -1,4 +1,4 @@
-package Model;
+package com.rachelcampbell.RedStoreSA.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -17,13 +17,14 @@ public class User {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
 
+   @Column(nullable = false)
    private String firstname = "";
+
+   @Column(nullable = false)
    private String lastname = "";
-   private String address_line_1 = "";
-   private String address_line_2 = "";
-   private String city = "";
-   private String state = "";
-   private String zipcode = "";
+
+   private String shipping_address;
+   private String billing_address;
    private String phone = "";
    private String balance = "";
 

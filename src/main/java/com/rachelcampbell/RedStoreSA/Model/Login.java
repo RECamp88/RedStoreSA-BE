@@ -1,4 +1,4 @@
-package Model;
+package com.rachelcampbell.RedStoreSA.Model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,10 @@ public class Login {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
     private String password;
 
     @OneToOne(fetch = FetchType.EAGER)

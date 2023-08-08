@@ -1,12 +1,12 @@
-package Service;
+package com.rachelcampbell.RedStoreSA.Service;
 
-import Model.Login;
-import Model.User;
-import Repository.LoginRepository;
-import Repository.UserRepository;
+import com.rachelcampbell.RedStoreSA.Model.Login;
+import com.rachelcampbell.RedStoreSA.Model.User;
+import com.rachelcampbell.RedStoreSA.Repository.LoginRepository;
+import com.rachelcampbell.RedStoreSA.Repository.UserRepository;
+import com.rachelcampbell.RedStoreSA.Exception.ServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import Exception.ServicesException;
 
 @Service
 public class UserService {
@@ -42,7 +42,7 @@ public class UserService {
     * @param id and user object
     * @ return updated user object
     * */
-    public User updateUser ( long id, User user){
+    public User updateUser( long id, User user){
         if(userRepository.existsById(id)){
             User currentUser = userRepository.findById(id).get();
             user.setId(id);
@@ -52,4 +52,21 @@ public class UserService {
         }
         return null;
     }
+
+    /* User Story 3: Delete Account
+    *  User should be able to delete their account.
+    *  @param id and user to be deleted
+    *  @return return deleted user
+    *  The only way a user could request to delete account is by actually already being logged in.
+    *  Login status will be handled on the front end.
+    *  */
+    public User deleteUser(long id, User user) {
+        User deletedUser = new User();
+        if(userRepository.existsById(id)){
+            deletedUser = user;
+            userRepository.delete(user);
+        }
+        return deletedUser;
+    }
+
 }

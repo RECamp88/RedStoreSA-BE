@@ -1,13 +1,13 @@
-package Service;
+package com.rachelcampbell.RedStoreSA.Service;
 
-import Model.Login;
-import Model.User;
-import Repository.LoginRepository;
-import Repository.UserRepository;
+import com.rachelcampbell.RedStoreSA.Model.Login;
+import com.rachelcampbell.RedStoreSA.Model.User;
+import com.rachelcampbell.RedStoreSA.Repository.LoginRepository;
+import com.rachelcampbell.RedStoreSA.Repository.UserRepository;
+import com.rachelcampbell.RedStoreSA.Exception.ServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import Exception.ServicesException;
 
 @Service
 public class LoginService {
@@ -53,8 +53,7 @@ public class LoginService {
         if(BCrypt.checkpw(login.getPassword(), currentLogin.getPassword())) {
             return currentLogin.getUser();
         }else {
-            throw new ServicesException("Incorrect password.")
+            throw new ServicesException("Incorrect password.");
         }
-        return null;
     }
 }

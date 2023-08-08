@@ -1,4 +1,4 @@
-package Exception;
+package com.rachelcampbell.RedStoreSA.Exception;
 
 public class ServicesException extends Exception{
     public ServicesException(String message) {
