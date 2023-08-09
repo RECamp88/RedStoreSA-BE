@@ -1,6 +1,7 @@
 package com.rachelcampbell.RedStoreSA.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,5 +35,6 @@ public class User {
    private Login login;
 
    @OneToMany
+   @JsonManagedReference
    public List<Product> cart;
 }

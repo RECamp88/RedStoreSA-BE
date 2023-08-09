@@ -129,7 +129,7 @@ public class UserService {
                 break;
             }
         }
-        user.setBalance((user.getBalance()) - (product.getPrice());
+        user.setBalance((user.getBalance()) - (product.getPrice()));
         user.setCart(cart);
         return userRepository.save(user);
     }
