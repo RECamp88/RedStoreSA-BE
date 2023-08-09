@@ -6,7 +6,7 @@ import com.rachelcampbell.RedStoreSA.Repository.ProductRepository;
 import com.rachelcampbell.RedStoreSA.Repository.UserRepository;
 import com.rachelcampbell.RedStoreSA.Exception.ServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class UserService {
         if(currentUser == null) {
             throw new ServicesException("User does not exist.");
         }
-        if(BCrypt.checkpw(user.getPassword(), currentUser.getPassword())) {
+        if((user.getPassword()).equals(currentUser.getPassword())) {
             return currentUser;
         }else {
             throw new ServicesException("Incorrect password.");
