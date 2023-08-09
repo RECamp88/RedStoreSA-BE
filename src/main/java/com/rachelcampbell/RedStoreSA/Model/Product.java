@@ -22,7 +22,7 @@ public class Product {
     private String description; // description of the product
     private String size; // each record will reflect a particular size
     private Double price; // price per item
-    private int quantity; // number of units in stock, default will be 25
+    private int quantity; // number of units in cart, default will be 0
     private String img; // image of the item as found in the resources/static/images
 
     public void incrementQuantity(){

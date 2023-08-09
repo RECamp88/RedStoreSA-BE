@@ -43,11 +43,22 @@ public class UserController {
 
     // Following methods will be working with the Users shopping: adding, removing, and paying for their cart items
 
+    // add product to the cart
+    @PostMapping("{uid)/addProduct/{pid}")
+    public User addProductToCart(@PathVariable long uid, @PathVariable int pid) throws ServicesException{
+        return userService.addToCart(uid, pid);
+    }
 
+    // remove a product from the cart
+    @PostMapping("{uid)/removeProduct/{pid}")
+    public User removeProductToCart(@PathVariable long uid, @PathVariable int pid){
+        return userService.removeFromCart(uid, pid);
+    }
 
-
-
-
-
+    // empties the cart
+    @PostMapping("{id}/emptyCart")
+    public User emptyCart(@PathVariable long id){
+        return userService.emptyCart(id);
+    }
 
 }

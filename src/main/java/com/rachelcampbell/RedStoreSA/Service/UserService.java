@@ -10,6 +10,7 @@ import com.rachelcampbell.RedStoreSA.Exception.ServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,7 +44,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    /* User Story 2: Update a User
+    /* User Story 2: Update a User object
     * User should be able to update their information.
     * @param id and user object
     * @ return updated user object
@@ -111,7 +112,39 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    /* Shopping Story 2: Removing an item from the cart*/
+    /* Shopping Story 2: Removing an item from the cart
+    * @param: user id (uid) and product id (pid)
+    * @return: user object with updated cart
+    */
+    public User removeFromCart(long uid, int pid){
+        User user = userRepository.findById(uid).get();
+        Product product = productRepository.findById(pid).get();
+        List<Product> cart = user.getCart();
+        for(Product item: cart){
+            if(item.getId() == product.getId()){
+                item.decrementQuantity();
+                if(item.getQuantity() == 0){
+                    cart.remove(item);
+                }
+                break;
+            }
+        }
+        user.setBalance((user.getBalance()) - (product.getPrice());
+        user.setCart(cart);
+        return userRepository.save(user);
+    }
 
+    /* Shopping Story 3: Empty Cart
+    *  Empties the cart whether after paying or selecting to remove all items
+    *  @param: user id
+    *  @return: returns an updated user with an empty cart list
+    */
+    public User emptyCart(long id){
+        User user = userRepository.findById(id).get();
+        List<Product> cart = new ArrayList<>();
+        user.setBalance(0.00);
+        user.setCart(cart);
+        return userRepository.save(user);
+    }
 
 }

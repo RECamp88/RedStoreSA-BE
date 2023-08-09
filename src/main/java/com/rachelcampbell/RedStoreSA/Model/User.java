@@ -18,15 +18,15 @@ public class User {
    private Long id;
 
    @Column(nullable = false)
-   private String firstname = "";
+   private String firstname;
 
    @Column(nullable = false)
-   private String lastname = "";
+   private String lastname;
 
    private String shipping_address;
    private String billing_address;
-   private String phone = "";
-   private String balance = "";
+   private String phone;
+   private Double balance;
 
    @OneToOne(fetch = FetchType.EAGER)
    @JsonBackReference
