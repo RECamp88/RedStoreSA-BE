@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@Table(name="product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +31,17 @@ public class Product {
         this.quantity --;
     }
 
-
-
+    public Product(int id, String name, String dept, String type, String description, String size, Double price, int quantity, String img) {
+        this.id = id;
+        this.name = name;
+        this.dept = dept;
+        this.type = type;
+        this.description = description;
+        this.size = size;
+        this.price = price;
+        this.quantity = quantity;
+        this.img = img;
+    }
 }
 
 

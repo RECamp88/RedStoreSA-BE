@@ -11,13 +11,13 @@ import java.util.List;
 @CrossOrigin(origins = {"*"})
 @RequestMapping("products")
 public class ProductController {
-
     private final ProductService productService;
 
     @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
+
 
     //get a list of all products
     @GetMapping("all")
