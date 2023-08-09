@@ -16,7 +16,7 @@ import java.util.List;
 public class User {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long id;
+   private int id;
 
    @Column(nullable = false)
    private String firstname;
@@ -24,15 +24,16 @@ public class User {
    @Column(nullable = false)
    private String lastname;
 
+   @Column(nullable = false, unique = true)
+   private String email;
+
+   @Column(nullable = false)
+   private String password;
+
    private String shipping_address;
    private String billing_address;
    private String phone;
    private Double balance;
-
-   @OneToOne(fetch = FetchType.EAGER)
-   @JsonBackReference
-   @JoinColumn(name="login_id")
-   private Login login;
 
    @OneToMany
    @JsonManagedReference

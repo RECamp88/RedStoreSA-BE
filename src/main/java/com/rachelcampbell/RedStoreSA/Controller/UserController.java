@@ -19,25 +19,31 @@ public class UserController {
 
     // Registering a new User
     @PostMapping("register")
-    public User registerUser(@RequestBody User user, long id) throws ServicesException {
-        return userService.registerUser(user, id);
+    public User registerUser(@RequestBody User user) throws ServicesException {
+        return userService.registerUser(user);
+    }
+
+    // Login a User
+    @PostMapping("login")
+    public User loginUser(@RequestBody User user) throws ServicesException{
+        return userService.login(user);
     }
 
     //updating a user's information
     @PatchMapping("update")
-    public User updateUser(long id, @RequestBody User user) {
-        return userService.updateUser(id, user);
+    public User updateUser(@RequestBody User user) {
+        return userService.updateUser(user);
     }
 
     //deleting a user's account
     @DeleteMapping("delete")
-    public User deleteUser(long id, @RequestBody User user) {
-        return userService.deleteUser(id, user);
+    public User deleteUser(@RequestBody User user) {
+        return userService.deleteUser(user);
     }
 
     // get a user by their id
     @GetMapping("{id}")
-    public User getUserById(@PathVariable long id){
+    public User getUserById(@PathVariable int id){
         return userService.getUserById(id);
     }
 
@@ -45,19 +51,19 @@ public class UserController {
 
     // add product to the cart
     @PostMapping("{uid)/addProduct/{pid}")
-    public User addProductToCart(@PathVariable long uid, @PathVariable int pid) throws ServicesException{
+    public User addProductToCart(@PathVariable int uid, @PathVariable int pid) throws ServicesException{
         return userService.addToCart(uid, pid);
     }
 
     // remove a product from the cart
     @PostMapping("{uid)/removeProduct/{pid}")
-    public User removeProductToCart(@PathVariable long uid, @PathVariable int pid){
+    public User removeProductToCart(@PathVariable int uid, @PathVariable int pid){
         return userService.removeFromCart(uid, pid);
     }
 
     // empties the cart
     @PostMapping("{id}/emptyCart")
-    public User emptyCart(@PathVariable long id){
+    public User emptyCart(@PathVariable int id){
         return userService.emptyCart(id);
     }
 

@@ -1,13 +1,12 @@
 package com.rachelcampbell.RedStoreSA.Service;
 
-import com.rachelcampbell.RedStoreSA.Model.Login;
 import com.rachelcampbell.RedStoreSA.Model.Product;
 import com.rachelcampbell.RedStoreSA.Model.User;
-import com.rachelcampbell.RedStoreSA.Repository.LoginRepository;
 import com.rachelcampbell.RedStoreSA.Repository.ProductRepository;
 import com.rachelcampbell.RedStoreSA.Repository.UserRepository;
 import com.rachelcampbell.RedStoreSA.Exception.ServicesException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,13 +15,11 @@ import java.util.List;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private final LoginRepository loginRepository;
     private final ProductRepository productRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, LoginRepository loginRepository, ProductRepository productRepository) {
+    public UserService(UserRepository userRepository, ProductRepository productRepository) {
         this.userRepository = userRepository;
-        this.loginRepository = loginRepository;
         this.productRepository = productRepository;
     }
 
@@ -32,55 +29,71 @@ public class UserService {
     *  @return Returns the saved User
     *  @throws Throws an exception if the User already exists
     * */
-    public User registerUser(User user, long id) throws ServicesException {
-        Login login = loginRepository.findById(id).get();
+    public User registerUser(User user) throws ServicesException {
+        User registerUser = userRepository.findById(user.getId()).get();
 
-        if(login.getId() != null) {
+        if(user.getId() != 0) {
             throw new ServicesException("User Already Exists");
         }else {
-            login.setUser(user);
-            user.setLogin(login);
+            registerUser = user;
         }
-        return userRepository.save(user);
+        return userRepository.save(registerUser);
     }
 
-    /* User Story 2: Update a User object
+    /* User Story 2: User login
+     * @param login object
+     * @return returns registered user
+     * @throws throws an exception if user is not register or if the password doesn't match a current user.
+     * */
+    public User login(User user) throws ServicesException {
+        User currentUser = userRepository.findByEmail(user.getEmail());
+
+        if(currentUser == null) {
+            throw new ServicesException("User does not exist.");
+        }
+        if(BCrypt.checkpw(user.getPassword(), currentUser.getPassword())) {
+            return currentUser;
+        }else {
+            throw new ServicesException("Incorrect password.");
+        }
+    }
+
+
+    /* User Story 3: Update a User object
     * User should be able to update their information.
     * @param id and user object
     * @ return updated user object
     * */
-    public User updateUser( long id, User user){
-        if(userRepository.existsById(id)){
-            User currentUser = userRepository.findById(id).get();
-            user.setId(id);
-            user.setLogin(currentUser.getLogin());
+    public User updateUser(User user){
+        if(userRepository.existsById(user.getId())){
+            User currentUser = userRepository.findById(user.getId()).get();
             currentUser = user;
             return userRepository.save(currentUser);
         }
         return null;
     }
 
-    /* User Story 3: Delete Account
+    /* User Story 4: Delete Account
     *  User should be able to delete their account.
     *  @param id and user to be deleted
     *  @return return deleted user
     *  The only way a user could request to delete account is by actually already being logged in.
     *  Login status will be handled on the front end.
     *  */
-    public User deleteUser(long id, User user) {
+    public User deleteUser(User user) {
         User deletedUser = new User();
-        if(userRepository.existsById(id)){
+        if(userRepository.existsById(user.getId())){
             deletedUser = user;
             userRepository.delete(user);
         }
         return deletedUser;
     }
 
-    /* User Story 4: Get a user by their id
+    /* User Story 5: Get a user by their id
     *  @param: id
     *  @return: return the user
     * */
-    public User getUserById(long id){
+    public User getUserById(int id){
         return userRepository.findById(id).get();
     }
 
@@ -91,7 +104,7 @@ public class UserService {
      *  @return: user with updated cart
      *  @throws: if product is not found
      */
-    public User addToCart(long uid, int pid) throws ServicesException{
+    public User addToCart(int uid, int pid) throws ServicesException{
         User user = userRepository.findById(uid).get();
         Product product = productRepository.findById(pid).orElseThrow(() -> new ServicesException("Item is not found."));
         List<Product> cart = user.getCart();
@@ -116,7 +129,7 @@ public class UserService {
     * @param: user id (uid) and product id (pid)
     * @return: user object with updated cart
     */
-    public User removeFromCart(long uid, int pid){
+    public User removeFromCart(int uid, int pid){
         User user = userRepository.findById(uid).get();
         Product product = productRepository.findById(pid).get();
         List<Product> cart = user.getCart();
@@ -139,7 +152,7 @@ public class UserService {
     *  @param: user id
     *  @return: returns an updated user with an empty cart list
     */
-    public User emptyCart(long id){
+    public User emptyCart(int id){
         User user = userRepository.findById(id).get();
         List<Product> cart = new ArrayList<>();
         user.setBalance(0.00);
