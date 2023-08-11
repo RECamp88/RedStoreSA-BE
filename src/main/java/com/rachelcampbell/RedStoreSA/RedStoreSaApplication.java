@@ -23,7 +23,7 @@ public class RedStoreSaApplication {
 	@Bean
 	public CommandLineRunner cmd (ProductRepository productRepo) {
 		return args -> {
-			Product p = new Product(1, "Fitness Tracker", "Accessories", "Watch", "Peak fitness tech – the High-End Fitness Tracker Watch. Beyond timekeeping, it seamlessly enhances your active life.", null, 275.00, 0 , "images/exclusive.png");
+			Product p = new Product(1, "Mi Smart Band 4", "Accessories", "Watch", "Peak fitness tech – the High-End Fitness Tracker Watch. Beyond timekeeping, it seamlessly enhances your active life.", null, 275.00, 0 , "images/exclusive.png");
 			productRepo.save(p);
 			p = new Product(2, "Printed Red T-Shirt", "Clothing", "T-Shirt", "Sizes for everyone. Red Printed T-Shirt combines comfort and style. Elevate fashion with lasting quality, redefining sophistication.", "M", 35.00, 0 , "images/product-1.jpg");
 			productRepo.save(p);

@@ -36,9 +36,9 @@ public class UserController {
     }
 
     //deleting a user's account
-    @DeleteMapping("delete")
-    public User deleteUser(@RequestBody User user) {
-        return userService.deleteUser(user);
+    @DeleteMapping("delete/{id}")
+    public User deleteUser(@PathVariable int id) {
+        return userService.deleteUser(id);
     }
 
     // get a user by their id
@@ -50,13 +50,13 @@ public class UserController {
     // Following methods will be working with the Users shopping: adding, removing, and paying for their cart items
 
     // add product to the cart
-    @PostMapping("{uid)/addProduct/{pid}")
+    @PostMapping("{uid}/addProduct/{pid}")
     public User addProductToCart(@PathVariable int uid, @PathVariable int pid) throws ServicesException{
         return userService.addToCart(uid, pid);
     }
 
     // remove a product from the cart
-    @PostMapping("{uid)/removeProduct/{pid}")
+    @PostMapping("{uid}/removeProduct/{pid}")
     public User removeProductToCart(@PathVariable int uid, @PathVariable int pid){
         return userService.removeFromCart(uid, pid);
     }

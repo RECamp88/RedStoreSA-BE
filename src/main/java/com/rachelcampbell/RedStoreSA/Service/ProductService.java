@@ -3,6 +3,7 @@ package com.rachelcampbell.RedStoreSA.Service;
 import com.rachelcampbell.RedStoreSA.Model.Product;
 import com.rachelcampbell.RedStoreSA.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

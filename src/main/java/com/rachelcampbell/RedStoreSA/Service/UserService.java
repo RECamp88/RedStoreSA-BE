@@ -80,11 +80,10 @@ public class UserService {
     *  The only way a user could request to delete account is by actually already being logged in.
     *  Login status will be handled on the front end.
     *  */
-    public User deleteUser(User user) {
-        User deletedUser = new User();
-        if(userRepository.existsById(user.getId())){
-            deletedUser = user;
-            userRepository.delete(user);
+    public User deleteUser(int id) {
+        User deletedUser = userRepository.findById(id).get();
+        if(userRepository.existsById(id)){
+           userRepository.delete(deletedUser);
         }
         return deletedUser;
     }
