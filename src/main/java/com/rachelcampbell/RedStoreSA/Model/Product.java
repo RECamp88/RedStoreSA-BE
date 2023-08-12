@@ -16,9 +16,7 @@ public class Product {
     private int id; // primary key
     private String name; // name of item (will not be unique)
     private String dept; // (clothing, shoes, or accessories)
-    private String type; // (tshirt, polo, athletic pants, shoes, watch, fitness tracker, etc)
     private String description; // description of the product
-    private String size; // each record will reflect a particular size
     private Double price; // price per item
     private int quantity; // number of units in cart, default will be 0
     private String img; // image of the item as found in the resources/static/images
@@ -31,13 +29,13 @@ public class Product {
         this.quantity --;
     }
 
-    public Product(int id, String name, String dept, String type, String description, String size, Double price, int quantity, String img) {
+
+
+    public Product(int id, String name, String dept, String description, Double price, int quantity, String img) {
         this.id = id;
         this.name = name;
         this.dept = dept;
-        this.type = type;
         this.description = description;
-        this.size = size;
         this.price = price;
         this.quantity = quantity;
         this.img = img;
